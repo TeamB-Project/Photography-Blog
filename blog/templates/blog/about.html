@@ -2,6 +2,22 @@
 {% block content %}
     <h1>About</h1>
         <body>
-            <p> This is a blog designed for photographers from hobbyists to professionals.</p>
+            <article class="content-section">
+                <p>
+                    Photography Social is a community space designed for photographers from hobbyists to professionals. Here you can connect with other photography enthusiasts to discuss equipment, ask for helpful tips, share your photos, and read and write articles.
+                </p>
+                <p>
+                    Head over to the <a href="{% url 'blog-gallery' %}">Gallery</a> to browse galleries that other photographers have created. Here you can also upload photos to create galleries of your own.
+                </p>
+                <p>
+                    Whether you have a quick question or want to start an in-depth discussion, the <a href="{% url 'blog-forum' %}">Community Forums</a> are the place for you.
+                </p>
+                <p>
+                    Interesting new <a href="{% url 'blog-articles' %}">Articles</a> are published regularly. If you'd like to submit your own article, you must first <a href="{% url 'login' %}">Login</a> before you can begin to write your article. If you haven't created an account yet, visit our <a href="{% url 'register' %}">Registration</a> page to get started.
+                </p>
+                <p>
+                    We hope that you enjoy your time here at Photography Social and that our community will help to grow your passion in this field!
+                </p>
+            </article>
         </body>
 {% endblock content %}
