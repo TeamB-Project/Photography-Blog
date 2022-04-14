@@ -7,16 +7,20 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post
+from blog.models import Post, Category
+from .forms import (PostForm, UpdateForm) #forms.py
+
 
 def home(request):
-    return render(request, 'blog/home.html', {'title': 'Home'})
+    return render(request, 'blog/home.html')
+
 
 def articles(request):
     context = {
         'posts': Post.objects.all()
     }
     return render(request, 'blog/articles.html', context)
+
 
 class PostListView(ListView):
     model = Post
@@ -29,18 +33,16 @@ class PostDetailView(DetailView):
     model = Post
 
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+class PostCreateView(CreateView):
     model = Post
-    fields = ['title', 'content']
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+    form_class = PostForm
+    template_name = 'blog/post_form.html'
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content']
+    form_class = UpdateForm
+    template_name = 'blog/update_post_form.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -72,3 +74,12 @@ def gallery(request):
 
 def forum(request):
     return render(request, 'blog/forum.html', {'title': 'Forum'}) #view forum page
+
+def howto(request):
+    return render(request, 'blog/howto.html', {'title': 'How-to...'}) #view how-too...
+
+def tipstricks(request):
+    return render(request, 'blog/tipstricks.html', {'title': 'Tips&Tricks'}) #tips&tricks
+
+def reviews(request):
+    return render(request, 'blog/reviews.html', {'title': 'Camera&LensReviews'}) #reviews

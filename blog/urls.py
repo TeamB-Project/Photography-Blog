@@ -9,13 +9,17 @@ from .views import (
 from . import views
 
 urlpatterns = [
-    path('', PostListView.as_view(), name='blog-articles'),
+    path('articles/', PostListView.as_view(), name='blog-articles'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     path('post/new/', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('about/', views.about, name='blog-about'),
-    path('gallery/', views.gallery, name='blog-gallery'), #gallery 
-    path('forum/', views.forum, name='blog-forum'), #forum 
-    path('home/', views.home, name='blog-home'),
+    path('gallery/', views.gallery, name='blog-gallery'),
+    path('forum/', views.forum, name='blog-forum'),
+    path('howto/', views.howto, name='blog-howto'),
+    path('tips&tricks/', views.tipstricks, name='blog-tipstricks'),
+    path('reviews/', views.reviews, name='blog-reviews'),
+    path('', views.home, name='blog-home'),
+    path('home/', views.home, name='home'),
 ]
