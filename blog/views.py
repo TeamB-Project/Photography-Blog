@@ -9,6 +9,8 @@ from django.views.generic import (
 )
 from blog.models import Post, Category
 from .forms import (PostForm, UpdateForm) #forms.py
+from django.db.models import Q
+from django.utils import timezone
 
 
 def home(request):
@@ -21,13 +23,15 @@ def articles(request):
     }
     return render(request, 'blog/articles.html', context)
 
-
 class PostListView(ListView):
     model = Post
     template_name = 'blog/articles.html'  #<app>/<model>_<viewtype>.html
     context_object_name = 'posts'
-    ordering = ['-date_posted']
 
+#Admin approval
+    def get_queryset(self):
+        currenttime = timezone.now()
+        return Post.objects.filter(Q(date_posted__isnull=False),Q(date_posted__lt=currenttime)).order_by('-date_posted')
 
 class PostDetailView(DetailView):
     model = Post

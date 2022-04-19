@@ -1,4 +1,15 @@
 {% extends "blog/base.html" %}
 {% block content %}
-    <h1>All articles page is under construction</h1>
+    {% for post in posts %}
+    <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <p>By <a class= "mr-2" href="#">{{ post.author }}</a>
+            <small class="text-muted">| {{ post.date_posted|date:"F d, Y" }}</small></p>
+          </div>
+          <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+      </article>
+        {% endfor %}
 {% endblock content %}
