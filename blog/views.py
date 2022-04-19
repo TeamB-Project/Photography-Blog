@@ -11,6 +11,7 @@ from blog.models import Post, Category
 from .forms import (PostForm, UpdateForm) #forms.py
 from django.db.models import Q
 from django.utils import timezone
+from django.urls import reverse_lazy
 
 
 def home(request):
@@ -47,6 +48,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     form_class = UpdateForm
     template_name = 'blog/update_post_form.html'
+    success_url = reverse_lazy('post-update-success')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -61,7 +63,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    success_url = '/'
+    success_url = reverse_lazy('post-delete-success')
 
     def test_func(self):
         post = self.get_object()
@@ -87,3 +89,9 @@ def tipstricks(request):
 
 def reviews(request):
     return render(request, 'blog/reviews.html', {'title': 'Camera&LensReviews'}) #reviews
+
+def post_delete(request):
+    return render(request, 'blog/post_delete_success.html', {'title': 'Article Deleted'}) #Deleted articles
+
+def post_update(request):
+    return render(request, 'blog/post_update_success.html', {'title': 'Article Updated'}) #Deleted articles

@@ -22,4 +22,6 @@ urlpatterns = [
     path('reviews/', views.reviews, name='blog-reviews'),
     path('', views.home, name='blog-home'),
     path('home/', views.home, name='home'),
+    path('post/delete/success/', views.post_delete, name='post-delete-success'),
+    path('post/update/success/', views.post_update, name='post-update-success'),
 ]
