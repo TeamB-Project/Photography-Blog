@@ -9,6 +9,7 @@
                         <h6>Taken by {{ photo.photographer }}</h6><br>
                         <img class="image-fullsize" src="{{photo.image.url}}"><br>
                         <small>Featured in {{ photo.photocategory.name }}<br></small>
+                        <small>{{ photo.description }}<br></small>
                         <small><i class="bi bi-calendar"></i> Published on {{ photo.publishdate|date:"F d, Y"  }}<br></small>
                         <small><i class="bi bi-geo-alt-fill"></i> Location {{ photo.location }}</small>
                     </div>
