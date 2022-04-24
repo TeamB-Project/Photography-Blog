@@ -9,13 +9,13 @@ class PhotoCategory(models.Model):
         return self.name
 
 class Photo(models.Model):
-    photocategory = models.ForeignKey(PhotoCategory, on_delete=models.SET_NULL,null=True,blank=True)
+    photocategory = models.ForeignKey(PhotoCategory, on_delete=models.SET_NULL,null=True,blank=False)
     image = models.ImageField(null=False, blank=False)
     description = models.TextField()
-    photographer = models.ForeignKey(User,on_delete=models.CASCADE, default=1)
+    photographer = models.ForeignKey(User,on_delete=models.CASCADE)
     publishdate = models.DateTimeField(blank=True, null=True)
     approved = models.BooleanField(default=False)
     location = models.CharField(max_length=100, null=True,blank=True)
 
     def __str__(self):
-        return self.description + '------' + str(self.approved)
+        return self.description + '------' + str(self.approved) #Admin approval for photos description and True or False
