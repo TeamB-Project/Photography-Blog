@@ -5,6 +5,16 @@ body {
 	font-family: Verdana, Geneva, Sans-Serif;
 }
 
+.image-thumbnail {
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.image-fullsize {
+	max-height: 150%;
+	max-width: 150%;
+}
+
 h1,
 h2,
 h3,
@@ -92,4 +102,11 @@ a.article-title:hover {
 
 .account-heading {
 	font-size: 2.5rem;
+}
+
+.username-title {
+	color: #0095ff;
+	text-decoration: none;
+	font-family: Verdana, Geneva, Sans-Serif;
+	margin-right: 2px;
 }

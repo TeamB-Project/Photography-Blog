@@ -90,8 +90,11 @@ def tipstricks(request):
 def reviews(request):
     return render(request, 'blog/reviews.html', {'title': 'Camera&LensReviews'}) #reviews
 
+def other(request):
+    return render(request, 'blog/other.html', {'title': 'Other'}) #reviews
+
 def post_delete(request):
     return render(request, 'blog/post_delete_success.html', {'title': 'Article Deleted'}) #Deleted articles
 
 def post_update(request):
-    return render(request, 'blog/post_update_success.html', {'title': 'Article Updated'}) #Deleted articles
+    return render(request, 'blog/post_update_success.html', {'title': 'Article Updated'}) #Updated articles

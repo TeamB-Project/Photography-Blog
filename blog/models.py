@@ -9,7 +9,7 @@ class Post(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.CharField(max_length=100, default='uncategorized') #category select
+    category = models.CharField(max_length=100, default='uncategorized') #Category Select
 
     def __str__(self):
         return self.title + '------' + str(self.author) + '------' + str(self.date_posted) #these fields will display on the admin site
@@ -20,7 +20,7 @@ class Post(models.Model):
     #def get_absolute_url(self):
         #return reverse('post-detail',kwargs={'pk': self.pk})
 
-#category select
+#Category Select
 class Category(models.Model): 
     name = models.CharField(max_length=100)
 

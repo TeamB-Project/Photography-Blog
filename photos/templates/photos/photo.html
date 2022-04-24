@@ -1,0 +1,18 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <h1>Photo</h1>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col">
+                    <a href="{% url 'gallery' %}" class="btn btn-dark my-3">Return</a>
+                    <div style="height: 90vh;">
+                        Taken by {{ photo.photographer }}
+                        <img class="image-fullsize" src="{{photo.image.url}}">
+                        <small>Featured in {{ photo.photocategory.name }}<br></small>
+                        <small><i class="bi bi-calendar"></i> Published on {{ photo.publishdate|date:"F d, Y"  }}<br></small>
+                        <small><i class="bi bi-geo-alt-fill"></i> Location {{ photo.location }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock content %}

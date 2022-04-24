@@ -1,0 +1,42 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>Upload Photo</h1>
+        <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <a href="{% url 'gallery' %}" class="btn btn-dark my-3">Go Back</a>
+                        <div class="card">
+                            <form method='POST' action="" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group m-3">
+                                    <label>Description</label>
+                                    <input required name="description" type="text" placeholder="Enter a description" class="form-control">
+                                </div>
+                                <div class="form-group m-3">
+                                    <label>Location Photo Taken</label>
+                                    <input name="location" type="text" placeholder="Enter a location" class="form-control">
+                                </div>
+                                <div class="form-group m-3">
+                                    <label>Select a category</label>
+                                    <select name="photocategory" class="form-control">
+                                        <option value='none'>Select a category...</option>
+                                        {% for photocategory in photocategories %}
+                                            <option value='{{photocategory.id}}'>{{photocategory.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group m-3">
+                                    <label>Upload Image</label>
+                                    <input required name="image" type="file" class="form-control-file">
+                                </div>
+                                <button type='submit' class="btn btn-outline-dark m-3">Submit for Review</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    {% else %}
+        Log in to submit a photo
+    {% endif %}
+{% endblock content %}

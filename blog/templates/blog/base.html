@@ -36,7 +36,7 @@
                 <a class="nav-link" href="{% url 'blog-about' %}">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'blog-gallery' %}">Gallery</a>
+                <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'blog-forum' %}">Community Forums</a>
@@ -49,6 +49,7 @@
                   <li><a class="dropdown-item" href="{% url 'blog-howto' %}">How To ...</a></li>
                   <li><a class="dropdown-item" href="{% url 'blog-tipstricks' %}">Tips & Tricks</a></li>
                   <li><a class="dropdown-item" href="{% url 'blog-reviews' %}">Camera & Lens Reviews</a></li>
+                  <li><a class="dropdown-item" href="{% url 'blog-other' %}">Other</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="{% url 'blog-articles' %}">All</a></li>
                 </ul>
@@ -57,6 +58,9 @@
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="{% url 'post-create' %}"><i class="bi bi-pencil-square"></i> New Post</a>
                 </li>
+                <!--<li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">View Profile</a>
+                </li>-->
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout</a>
                 </li>
