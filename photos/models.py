@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from taggit.managers import TaggableManager
 
 class PhotoCategory(models.Model):
     name = models.CharField(max_length=100,null=False,blank=False)
@@ -16,6 +17,7 @@ class Photo(models.Model):
     publishdate = models.DateTimeField(blank=True, null=True)
     approved = models.BooleanField(default=False)
     location = models.CharField(max_length=100, null=True,blank=True)
+    tags = TaggableManager()
 
     def __str__(self):
         return self.description + '------' + str(self.approved) #Admin approval for photos description and True or False

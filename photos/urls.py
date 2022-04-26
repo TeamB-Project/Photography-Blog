@@ -10,4 +10,5 @@ urlpatterns = [
     path('add/', addPhoto.as_view(), name='add'),
     path('membergallery/<str:pid>/', views.membergallery, name='membergallery'),
     path('photo/update/success/', views.photo_update, name='photo-update-success'),
+    path('tags/<slug:tag_slug>/', views.TagIndexView.as_view(), name='posts-by-tag'),
 ]

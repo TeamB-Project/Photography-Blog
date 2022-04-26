@@ -6,18 +6,21 @@ from .forms import (PhotoPostForm, PhotoUpdateForm) #forms.py
 from django.views.generic import (
     CreateView,
     UpdateView,
+    ListView
 )
+from django.urls import reverse_lazy
+from taggit.models import Tag
 
-from django.urls import reverse_lazy 
 def gallery(request):
     photocategory = request.GET.get('photocategory')
     if photocategory == None:
        photos = Photo.objects.filter(approved=True)
     else:
         photos = Photo.objects.filter(Q(photocategory__name=photocategory),Q(approved=True))
- 
     photocategories = PhotoCategory.objects.all()
-    context = {'photocategories': photocategories, 'photos': photos}
+    tags = Tag.objects.all()
+
+    context = {'photocategories': photocategories, 'photos': photos, 'tags': tags}
     return render (request, 'photos/gallery.html', context)
  
 class addPhoto(CreateView):
@@ -54,3 +57,17 @@ def membergallery(request, pid):
 
 def photo_update(request):
     return render(request, 'photos/photo_update_success.html', {'title': 'Photo Updated'}) #Updated articles
+
+class TagMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(TagMixin, self).get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
+
+class TagIndexView(TagMixin, ListView):
+    model = Photo
+    template_name = 'photos/gallery.html'
+    context_object_name = 'photos'
+
+    def get_queryset(self):
+        return Photo.objects.filter(tags__slug=self.kwargs.get('tag_slug'))

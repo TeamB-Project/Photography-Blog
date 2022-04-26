@@ -11,7 +11,11 @@
                         <small>Featured in {{ photo.photocategory.name }}<br></small>
                         <small>{{ photo.description }}<br></small>
                         <small><i class="bi bi-calendar"></i> Published on {{ photo.publishdate|date:"F d, Y"  }}<br></small>
-                        <small><i class="bi bi-geo-alt-fill"></i> Location {{ photo.location }}</small>
+                        <small><i class="bi bi-geo-alt-fill"></i> Location {{ photo.location }}<br></small>
+                        <small>Tags </small>
+                        {% for tag in photo.tags.all %}
+                            <a href="{% url 'posts-by-tag' tag.slug %}" class="btn btn-dark my-3">{{ tag }}</a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
