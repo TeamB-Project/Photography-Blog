@@ -3,7 +3,7 @@
   <h1>Gallery</h1>
   <div class="container m-3">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="card">
                     <div class="card-header">
                         <b>Categories</b>
@@ -33,10 +33,10 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 <div class="row">
                     {% for photo in photos %}
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <div class="card my-2">
                                 <a href="{% url 'viewphoto' photo.id %}"><img class="image-thumbnail" src="{{photo.image.url}}"><br></a>
                                 <!--<div class="card-body">

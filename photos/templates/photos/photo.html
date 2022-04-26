@@ -12,9 +12,11 @@
                         <small>{{ photo.description }}<br></small>
                         <small><i class="bi bi-calendar"></i> Published on {{ photo.publishdate|date:"F d, Y"  }}<br></small>
                         <small><i class="bi bi-geo-alt-fill"></i> Location {{ photo.location }}<br></small>
-                        <small>Tags </small>
+                        <small><i class="bi bi-tags"></i> Tags </small>
                         {% for tag in photo.tags.all %}
-                            <a href="{% url 'posts-by-tag' tag.slug %}" class="btn btn-dark my-3">{{ tag }}</a>
+                            <a href="{% url 'posts-by-tag' tag.slug %}" class="btn btn-sm btn-dark my-3">{{ tag }}</a>
+                        {% empty %}
+                            <small>none</small>
                         {% endfor %}
                     </div>
                 </div>
