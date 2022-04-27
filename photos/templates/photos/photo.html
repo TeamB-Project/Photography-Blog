@@ -8,13 +8,13 @@
                     <div style="height: 90vh;">
                         <h6>Taken by {{ photo.photographer }}</h6><br>
                         <img class="image-fullsize" src="{{photo.image.url}}"><br>
-                        <small>Featured in {{ photo.photocategory.name }}<br></small>
+                        <small>Featured in <a href="{% url 'gallery' %}?photocategory={{photo.photocategory.name}}">{{ photo.photocategory.name }}</a><br></small>
                         <small>{{ photo.description }}<br></small>
                         <small><i class="bi bi-calendar"></i> Published on {{ photo.publishdate|date:"F d, Y"  }}<br></small>
                         <small><i class="bi bi-geo-alt-fill"></i> Location {{ photo.location }}<br></small>
                         <small><i class="bi bi-tags"></i> Tags </small>
                         {% for tag in photo.tags.all %}
-                            <a href="{% url 'posts-by-tag' tag.slug %}" class="btn btn-sm btn-dark my-3">{{ tag }}</a>
+                            <a href="{% url 'photos-by-tag' tag.slug %}" class="btn btn-sm btn-dark py-0 my-0">{{ tag }}</a>
                         {% empty %}
                             <small>none</small>
                         {% endfor %}

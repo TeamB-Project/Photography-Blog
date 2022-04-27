@@ -11,13 +11,14 @@
                     <ul class="list-group list-group-flush">
                         {% for photocategory in photocategories %}
                             <li class="list-group-item">
-                                <a href="{% url 'gallery' %}?photocategory={{photocategory.name}}" class=article-title>
+                                <a href="{% url 'gallery' %}?photocategory={{photocategory.name}}" class="article-title">
                                     {{photocategory.name}}</a></li>
                         {% endfor %}
                         <li class="list-group-item"><a href="{% url 'gallery' %}" class=article-title>All Photos</a></li>
                         <a href="{% url 'add' %}" class="btn btn-dark active btn-block m-1">Submit a Photo</a>
                     </ul>
                 </div>
+                <br/>
                 <div class="card">
                     <div class="card-header">
                         <b>Tags</b>
@@ -25,7 +26,7 @@
                     <ul class="list-group list-group-flush">
                         {% for tag in tags %}
                             <li class="list-group-item">
-                                <a href="{% url 'posts-by-tag' tag.slug %}" class=article-title>
+                                <a href="{% url 'photos-by-tag' tag.slug %}" class="article-title">
                                     {{ tag.name }}
                                 </a>
                             </li>
