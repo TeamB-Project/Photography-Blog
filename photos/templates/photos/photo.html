@@ -1,6 +1,5 @@
 {% extends "blog/base.html" %}
 {% block content %}
-    <h1>Photo</h1>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col">
@@ -9,9 +8,9 @@
                         <h6>Taken by {{ photo.photographer }}</h6><br>
                         <img class="image-fullsize" src="{{photo.image.url}}"><br>
                         <small>Featured in <a href="{% url 'gallery' %}?photocategory={{photo.photocategory.name}}">{{ photo.photocategory.name }}</a><br></small>
-                        <small>{{ photo.description }}<br></small>
                         <small><i class="bi bi-calendar"></i> Published on {{ photo.publishdate|date:"F d, Y"  }}<br></small>
                         <small><i class="bi bi-geo-alt-fill"></i> Location {{ photo.location }}<br></small>
+                        <small>{{ photo.description }}<br><br></small>
                         <small><i class="bi bi-tags"></i> Tags </small>
                         {% for tag in photo.tags.all %}
                             <a href="{% url 'photos-by-tag' tag.slug %}" class="btn btn-sm btn-dark py-0 my-0">{{ tag }}</a>
