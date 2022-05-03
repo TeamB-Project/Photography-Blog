@@ -10,7 +10,6 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 from taggit.models import Tag
-from collections import defaultdict, Counter
 
 def gallery(request):
     photocategory = request.GET.get('photocategory')

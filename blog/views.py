@@ -98,3 +98,15 @@ def post_delete(request):
 
 def post_update(request):
     return render(request, 'blog/post_update_success.html', {'title': 'Article Updated'}) #Updated articles
+
+class SearchResultsView(ListView):
+    model = Post
+    template_name = 'blog/articles.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        query = self.request.GET.get("post-search")
+        object_list = Post.objects.filter(
+            Q(title__icontains=query) & Q(date_posted__isnull=False)
+        ).exclude(Q(title__iexact=''))
+        return object_list

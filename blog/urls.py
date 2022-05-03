@@ -4,7 +4,8 @@ from .views import (
     PostDetailView,
     PostCreateView,
     PostUpdateView,
-    PostDeleteView
+    PostDeleteView,
+    SearchResultsView
 )
 from . import views
 
@@ -24,4 +25,5 @@ urlpatterns = [
     path('home/', views.home, name='home'),
     path('post/delete/success/', views.post_delete, name='post-delete-success'),
     path('post/update/success/', views.post_update, name='post-update-success'),
+    path('search/', SearchResultsView.as_view(), name='search-results')
 ]
