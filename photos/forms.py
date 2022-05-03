@@ -1,6 +1,7 @@
 from distutils.command.upload import upload
 from django import forms
 from .models import Photo, PhotoCategory
+from taggit.forms import TagWidget
  
 photocategories = PhotoCategory.objects.all().values_list('name','name')
 
@@ -24,9 +25,10 @@ class PhotoPostForm(forms.ModelForm):
 class PhotoUpdateForm(forms.ModelForm):
     class Meta:
         model = Photo
-        fields = ('description', 'photocategory', 'location','image')
+        fields = ('photocategory', 'description', 'location', 'image', 'tags')
         widgets = {
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
             'photocategory': forms.Select(choices=photocategories_list, attrs={'class': 'form-control'}),
+            'tags': TagWidget(),
             }

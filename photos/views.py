@@ -10,6 +10,7 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 from taggit.models import Tag
+from collections import defaultdict, Counter
 
 def gallery(request):
     photocategory = request.GET.get('photocategory')
@@ -19,8 +20,9 @@ def gallery(request):
         photos = Photo.objects.filter(Q(photocategory__name=photocategory),Q(approved=True))
     photocategories = PhotoCategory.objects.all()
     tags = Tag.objects.all()
+    toptags = Photo.tags.most_common()[:10]
 
-    context = {'photocategories': photocategories, 'photos': photos, 'tags': tags}
+    context = {'photocategories': photocategories, 'photos': photos, 'tags': tags, 'toptags': toptags}
     return render (request, 'photos/gallery.html', context)
  
 class addPhoto(CreateView):
@@ -32,7 +34,7 @@ class addPhoto(CreateView):
 class PhotoPostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Photo
     form_class = PhotoUpdateForm
-    template_name = 'photos/add.html'
+    template_name = 'photos/update_photo_form.html'
     success_url = reverse_lazy('photo-update-success')
 
     def form_valid(self, form):
@@ -63,6 +65,7 @@ class TagMixin(object):
         context = super(TagMixin, self).get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         context['photocategories'] = PhotoCategory.objects.all()
+        context['toptags'] = Photo.tags.most_common()[:10]
         return context
 
 class TagIndexView(TagMixin, ListView):

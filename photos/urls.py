@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
 from .views import (
-    addPhoto
+    addPhoto,
+    PhotoPostUpdateView
 )
 
 urlpatterns = [
@@ -11,4 +12,5 @@ urlpatterns = [
     path('membergallery/<str:pid>/', views.membergallery, name='membergallery'),
     path('photo/update/success/', views.photo_update, name='photo-update-success'),
     path('tags/<slug:tag_slug>/', views.TagIndexView.as_view(), name='photos-by-tag'),
+    path('viewphoto/<str:pk>/update/', PhotoPostUpdateView.as_view(), name='photo-update'),
 ]

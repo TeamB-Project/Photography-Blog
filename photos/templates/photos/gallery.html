@@ -19,6 +19,20 @@
                     </ul>
                 </div>
                 <br/>
+                <div class="card">
+                    <div class="card-header">
+                        <b>Top Tags</b>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for tag in toptags %}
+                            <li class="list-group-item">
+                                <a href="{% url 'photos-by-tag' tag.slug %}" class="article-title">
+                                    {{ tag }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
                 <!--<div class="card">
                     <div class="card-header">
                         <b>Tags</b>
