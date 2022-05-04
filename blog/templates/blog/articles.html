@@ -1,8 +1,8 @@
 {% extends "blog/base.html" %}
 {% block content %}
   <form class="d-flex" action="{% url 'search-results' %}" method="GET">
-    <input class="form-control mb-2 me-2" name="post-search" type="text" placeholder="Search...">
-    <button class="btn btn-dark active btn-block mb-2">Search</button>
+    <input class="form-control mb-4 me-2" name="post-search" type="text" placeholder="Search...">
+    <button class="btn btn-dark active btn-block mb-4">Search</button>
   </form>
   {% for post in posts %}
     <article class="media content-section">
