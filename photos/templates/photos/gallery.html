@@ -23,7 +23,7 @@
                         <b>Top Tags</b>
                     </div>
                         <br>{% for tag in toptags %}
-                                    <a href="{% url 'photos-by-tag' tag.slug %}" class="btn btn-sm btn-outline-dark">
+                                    <a mb-1 href="{% url 'photos-by-tag' tag.slug %}" class="btn btn-sm btn-outline-dark">
                                         {{ tag }}
                                     </a>
                             {% endfor %}

@@ -21,4 +21,4 @@ class Photo(models.Model):
     tags = TaggableManager()
 
     def __str__(self):
-        return self.description + '------' + str(self.approved) #Admin approval for photos description and True or False
+        return self.description + '------' + str(self.approved)
