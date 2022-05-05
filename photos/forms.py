@@ -25,7 +25,7 @@ class PhotoPostForm(forms.ModelForm):
 class PhotoUpdateForm(forms.ModelForm):
     class Meta:
         model = Photo
-        fields = ('photocategory', 'description', 'location', 'image', 'tags')
+        fields = ('photocategory', 'description', 'location', 'tags')
         widgets = {
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),

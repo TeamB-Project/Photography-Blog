@@ -8,15 +8,13 @@ from django.views.generic import (
     DeleteView
 )
 from blog.models import Post, Category
-from .forms import (PostForm, UpdateForm) #forms.py
+from .forms import (PostForm, UpdateForm)
 from django.db.models import Q
 from django.utils import timezone
 from django.urls import reverse_lazy
 
-
 def home(request):
     return render(request, 'blog/home.html')
-
 
 def articles(request):
     context = {
@@ -28,6 +26,7 @@ class PostListView(ListView):
     model = Post
     template_name = 'blog/articles.html'  #<app>/<model>_<viewtype>.html
     context_object_name = 'posts'
+
 
 #Admin approval
     def get_queryset(self):
@@ -76,25 +75,37 @@ def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
 
 def gallery(request):
-    return render(request, 'blog/gallery.html', {'title': 'Gallery'}) #view gallery page
+    return render(request, 'blog/gallery.html', {'title': 'Gallery'})
 
 def forum(request):
-    return render(request, 'blog/forum.html', {'title': 'Forum'}) #view forum page
+    return render(request, 'blog/forum.html', {'title': 'Forum'})
 
 def howto(request):
-    return render(request, 'blog/howto.html', {'title': 'How-to...'}) #view how-too...
+    return render(request, 'blog/howto.html', {'title': 'How-to...'})
 
 def tipstricks(request):
-    return render(request, 'blog/tipstricks.html', {'title': 'Tips&Tricks'}) #tips&tricks
+    return render(request, 'blog/tipstricks.html', {'title': 'Tips&Tricks'})
 
 def reviews(request):
-    return render(request, 'blog/reviews.html', {'title': 'Camera&LensReviews'}) #reviews
+    return render(request, 'blog/reviews.html', {'title': 'Camera&LensReviews'})
 
 def other(request):
-    return render(request, 'blog/other.html', {'title': 'Other'}) #reviews
+    return render(request, 'blog/other.html', {'title': 'Other'})
 
 def post_delete(request):
-    return render(request, 'blog/post_delete_success.html', {'title': 'Article Deleted'}) #Deleted articles
+    return render(request, 'blog/post_delete_success.html', {'title': 'Article Deleted'})
 
 def post_update(request):
-    return render(request, 'blog/post_update_success.html', {'title': 'Article Updated'}) #Updated articles
+    return render(request, 'blog/post_update_success.html', {'title': 'Article Updated'})
+
+class SearchResultsView(ListView):
+    model = Post
+    template_name = 'blog/articles.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        query = self.request.GET.get("post-search")
+        object_list = Post.objects.filter(
+            Q(title__icontains=query) & Q(date_posted__isnull=False)
+        ).exclude(Q(title__iexact='')).order_by('-date_posted')
+        return object_list

@@ -11,8 +11,8 @@ body {
 }
 
 .image-fullsize {
-	max-height: 150%;
-	max-width: 150%;
+	max-height: 100%;
+	max-width: 100%;
 }
 
 h1,
@@ -105,7 +105,7 @@ a.article-title:hover {
 }
 
 .username-title {
-	color: #0095ff;
+	color: #ff0044;
 	text-decoration: none;
 	font-family: Verdana, Geneva, Sans-Serif;
 	margin-right: 2px;

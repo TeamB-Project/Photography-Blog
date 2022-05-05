@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Photo, PhotoCategory
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import (PhotoPostForm, PhotoUpdateForm) #forms.py
+from .forms import (PhotoPostForm, PhotoUpdateForm)
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -10,19 +10,21 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 from taggit.models import Tag
-from collections import defaultdict, Counter
 
 def gallery(request):
     photocategory = request.GET.get('photocategory')
     if photocategory == None:
-       photos = Photo.objects.filter(approved=True)
+       photos = Photo.objects.filter(approved=True).order_by('-publishdate')
+       photoset = "allphotos"
     else:
-        photos = Photo.objects.filter(Q(photocategory__name=photocategory),Q(approved=True))
+        photos = Photo.objects.filter(Q(photocategory__name=photocategory),Q(approved=True)).order_by('-publishdate')
+        photoset = "notallphotos"
     photocategories = PhotoCategory.objects.all()
+    descriptions = PhotoCategory.objects.filter(name=photocategory)
     tags = Tag.objects.all()
     toptags = Photo.tags.most_common()[:10]
 
-    context = {'photocategories': photocategories, 'photos': photos, 'tags': tags, 'toptags': toptags}
+    context = {'photocategories': photocategories, 'photos': photos, 'tags': tags, 'toptags': toptags, 'photoset':photoset, 'photocategory':photocategory, 'descriptions':descriptions}
     return render (request, 'photos/gallery.html', context)
  
 class addPhoto(CreateView):
@@ -58,7 +60,7 @@ def membergallery(request, pid):
     return render (request, 'photos/membergallery.html', context)
 
 def photo_update(request):
-    return render(request, 'photos/photo_update_success.html', {'title': 'Photo Updated'}) #Updated articles
+    return render(request, 'photos/photo_update_success.html', {'title': 'Photo Updated'})
 
 class TagMixin(object):
     def get_context_data(self, **kwargs):
@@ -71,7 +73,12 @@ class TagMixin(object):
 class TagIndexView(TagMixin, ListView):
     model = Photo
     template_name = 'photos/gallery.html'
-    context_object_name = 'photos'
 
-    def get_queryset(self):
-        return Photo.objects.filter(tags__slug=self.kwargs.get('tag_slug'))
+    def get_context_data(self, **kwargs):
+            context = super(TagMixin, self).get_context_data(**kwargs)
+            context['tags'] = Tag.objects.all()
+            context['photocategories'] = PhotoCategory.objects.all()
+            context['toptags'] = Photo.tags.most_common()[:10]
+            context['photos'] = Photo.objects.filter(Q(tags__slug=self.kwargs.get('tag_slug')),Q(approved=True))
+            context['photoset'] = "allphotos"
+            return context

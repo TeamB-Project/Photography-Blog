@@ -1,6 +1,5 @@
 {% extends "blog/base.html" %}
 {% block content %}
-  <h1>Gallery</h1>
   <div class="container m-3">
         <div class="row">
             <div class="col-md-2">
@@ -19,49 +18,38 @@
                     </ul>
                 </div>
                 <br/>
-                <div class="card">
+                <div><br>
                     <div class="card-header">
                         <b>Top Tags</b>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        {% for tag in toptags %}
-                            <li class="list-group-item">
-                                <a href="{% url 'photos-by-tag' tag.slug %}" class="article-title">
-                                    {{ tag }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                        <br>{% for tag in toptags %}
+                                    <a href="{% url 'photos-by-tag' tag.slug %}" class="btn btn-sm btn-outline-dark">
+                                        {{ tag }}
+                                    </a>
+                            {% endfor %}
                 </div>
-                <!--<div class="card">
-                    <div class="card-header">
-                        <b>Tags</b>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        {% for tag in tags %}
-                            <li class="list-group-item">
-                                <a href="{% url 'photos-by-tag' tag.slug %}" class="article-title">
-                                    {{ tag.name }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>-->
             </div>
             <div class="col-md-10">
-                <div class="row">
+                {% for photo in photos %}
+                            {% if forloop.last %}
+                            {% if photoset != "allphotos" %}
+                                <h4><b>{{photo.photocategory.name}}</b></h4>
+                                <h6>{{photo.photocategory.description}}</h6>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                <div class="row" data-masonry='{"percentPosition": true }'>
                     {% for photo in photos %}
                         <div class="col-md-4">
                             <div class="card my-2">
                                 <a href="{% url 'viewphoto' photo.id %}"><img class="image-thumbnail" src="{{photo.image.url}}"><br></a>
-                                <!--<div class="card-body">
-                                    <small>Photographer: <a class="mr-2" href="{% url 'membergallery' photo.photographer.id %}">{{ photo.photographer }}</a></small>
-                                    <small>Photographer: {{ photo.photographer }}<br></small>
-                                    <small>Category: {{photo.photocategory.name}}</small>     
-                                </div>-->
                             </div>
                         </div>
                     {% empty %}
+                        <h4><b>{{photocategory}}</b></h4>
+                        {% for description in descriptions %}
+                        <h6>{{description.description}}</h6>
+                        {% endfor %}
                         <h3>No Photos...</h3>
                     {% endfor %}
                 </div>
