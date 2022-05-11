@@ -17,43 +17,55 @@
                         <a href="{% url 'add' %}" class="btn btn-dark active btn-block m-1">Submit a Photo</a>
                     </ul>
                 </div>
-                <br/>
+                <br>
                 <div><br>
                     <div class="card-header">
                         <b>Top Tags</b>
                     </div>
                         <br>{% for tag in toptags %}
-                                    <a href="{% url 'photos-by-tag' tag.slug %}" class="btn btn-sm btn-outline-dark mb-2">
+                                    <a mb-1 href="{% url 'photos-by-tag' tag.slug %}" class="btn btn-sm btn-outline-dark">
                                         {{ tag }}
                                     </a>
                             {% endfor %}
                 </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10" id="picture-list">
                 {% for photo in photos %}
-                            {% if forloop.last %}
-                            {% if photoset != "allphotos" %}
-                                <h4><b>{{photo.photocategory.name}}</b></h4>
-                                <h6>{{photo.photocategory.description}}</h6>
-                            {% endif %}
+                        {% if forloop.last %}
+                        {% if photoset != "allphotos" %}
+                            <h4><b>{{photo.photocategory.name}}</b></h4>
+                            <h6>{{photo.photocategory.description}}</h6>
                         {% endif %}
-                    {% endfor %}
-                <div class="row" data-masonry='{"percentPosition": true }'>
-                    {% for photo in photos %}
-                        <div class="col-md-4">
-                            <div class="card my-2">
-                                <a href="{% url 'viewphoto' photo.id %}"><img class="image-thumbnail" src="{{photo.image.url}}"><br></a>
+                    {% endif %}
+                {% endfor %}
+                <div class="grid">
+                    <div class="grid-sizer"></div>
+                        {% for photo in photos %}
+                            <div class="grid-item">
+                                <a href="{% url 'viewphoto' photo.id %}"><img src="{{photo.image.url}}"></a>
                             </div>
-                        </div>
                     {% empty %}
                         <h4><b>{{photocategory}}</b></h4>
                         {% for description in descriptions %}
-                        <h6>{{description.description}}</h6>
+                            <h6>{{description.description}}</h6>
                         {% endfor %}
                         <h3>No Photos...</h3>
                     {% endfor %}
                 </div>
             </div>
-      </div>
-  </div>
+        </div>
+        <script>
+            var grid = document.querySelector('.grid');
+            var msnry = new Masonry( grid, {
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-sizer',
+            percentPosition: true,
+            gutter: 8
+            });
+            
+            imagesLoaded( grid ).on( 'progress', function() {
+            msnry.layout();
+            });
+        </script>
+    </div>
 {% endblock content %}

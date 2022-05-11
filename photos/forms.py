@@ -12,13 +12,18 @@ for item in photocategories:
 class PhotoPostForm(forms.ModelForm):
     class Meta:
         model = Photo
-        fields = ('photocategory', 'description' , 'photographer', 'location', 'image', 'tags')
+        fields = ('photocategory', 'description' , 'photographer', 'location', 'image', 'camera', 'focal', 'aperture','shutter', 'iso','tags')
  
         widgets = {
             'description': forms.TextInput(attrs={'class': 'form-control'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
             'photographer': forms.TextInput(attrs={'class': 'form-control','value':'','id':'uid','type':'hidden'}),
             'photocategory': forms.Select(choices=photocategories_list, attrs={'class': 'form-control'}),
+            'camera': forms.TextInput(attrs={'class': 'form-control'}),
+            'focal': forms.TextInput(attrs={'class': 'form-control'}),
+            'aperture': forms.TextInput(attrs={'class': 'form-control'}),
+            'shutter': forms.TextInput(attrs={'class': 'form-control'}),
+            'iso': forms.TextInput(attrs={'class': 'form-control'}),
             'tags': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
