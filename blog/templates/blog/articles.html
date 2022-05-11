@@ -6,16 +6,20 @@
   </form>
     {% for post in posts %}
       <article class="media content-section">
-          <div class="media-body">
+        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+        <div class="media-body">
+          <div class="article-metadata">
             <div class="article-metadata">
-              <p>By <a href="#" class="username-title">{{ post.author }}</a>
+              <p>By <a href="{% url 'show-profile' pk=post.author.pk %}" class="username-title">{{ post.author }}</a>
               <small class="text-muted">| {{ post.date_posted|date:"F d, Y" }}</small></p>
             </div>
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
           </div>
-        </article>
+        </div>
+      </article>
         {% empty %}
           <p>No articles found</p>
       {% endfor %}
   {% endblock content %}
+
