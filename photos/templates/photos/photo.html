@@ -9,7 +9,7 @@
                         {% if photo.photographer == user %}
                             <a class="btn btn-outline-info btn-sm mt-1 mb-1" href= "{% url 'photo-update' photo.id %}"><i class="bi bi-pencil"></i> Update</a> <a class="btn btn-outline-danger btn-sm mt-1 mb-1"  href= "#"><i class="bi bi-trash3"></i> Delete</a><br>
                         {% endif %}
-                        <img class="image-thumbnail" src="{{photo.image.url}}"><br>
+                        <img class="image-fullsize" src="{{photo.image.url}}"><br>
                         <small>Featured in <a href="{% url 'gallery' %}?photocategory={{photo.photocategory.name}}">{{ photo.photocategory.name }}</a><br></small>
                         <small><i class="bi bi-calendar"></i> Published on {{ photo.publishdate|date:"F d, Y"  }}<br></small>
                         <small><i class="bi bi-geo-alt-fill"></i> Location {{ photo.location }}<br></small>
