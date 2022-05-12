@@ -5,11 +5,6 @@ body {
 	font-family: Verdana, Geneva, Sans-Serif;
 }
 
-.image-thumbnail {
-	max-height: inherit;
-	max-width: 100%;
-}
-
 .image-fullsize {
 	max-height: 100%;
 	max-width: 100%;
@@ -38,6 +33,28 @@ body {
   .tooltip-ps:hover .tooltiptext-ps {
 	visibility: visible;
   }
+
+  .carousel {
+	margin-bottom: 4rem;
+}
+
+.carousel-caption {
+	bottom: 3rem;
+	z-index: 10;
+	background: rgba(0, 0, 0, 0.65);
+}
+  
+.carousel-item {
+	height: 45rem;
+}
+
+.carousel-item > img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	min-width: 100%;
+	height: 100%;
+}
 
 h1,
 h2,

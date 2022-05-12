@@ -11,9 +11,9 @@
                         {% for photocategory in photocategories %}
                             <li class="list-group-item">
                                 <a href="{% url 'gallery' %}?photocategory={{photocategory.name}}" class="article-title">
-                                    {{photocategory.name}}</a></li>
+                                    <small>{{photocategory.name}}</small></a></li>
                         {% endfor %}
-                        <li class="list-group-item"><a href="{% url 'gallery' %}" class=article-title>All Photos</a></li>
+                        <li class="list-group-item"><a href="{% url 'gallery' %}" class=article-title><small>All Photos</small></a></li>
                         <a href="{% url 'add' %}" class="btn btn-dark active btn-block m-1">Submit a Photo</a>
                     </ul>
                 </div>
