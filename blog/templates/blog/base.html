@@ -60,7 +60,7 @@
                   <a class="nav-link active" aria-current="page" href="{% url 'post-create' %}"><i class="bi bi-pencil-square"></i> New Post</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url 'profile' %}"> <img class="rounded-circle navbar-img" src="{{ user.profile.image.url }}"></a>
+                  <a class="nav-link active" aria-current="page" href="{% url 'profile' %}"> <img class="rounded-circle navbar-img" src="{{ request.user.profile.image.url }}"></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout</a>
