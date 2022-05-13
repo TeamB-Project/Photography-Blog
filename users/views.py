@@ -47,7 +47,7 @@ def profile_view(request, pk, *args, **kwargs):
     context = {}
 
     if request.method == "GET":
-        user = User.objects.get(id=pk)
-        context = {'user': user}
+        profileuser = User.objects.get(id=pk)
+        context = {'profileuser': profileuser}
     
     return render(request, 'users/show_profile.html', context)
