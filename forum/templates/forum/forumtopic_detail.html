@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+    <div class="col-10 mt-5">
+        <h1 id="header">{{ object.title }}</h1>
+    </div>
+
+    {% if request.user.is_authenticated %}
+        <div class="col-4">
+            <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'forumthread-create' object.id %}">New Thread</a>
+        </div>
+    {% endif %}
+
+    <div class="mt-5">
+        {% for forumthread in forumthreads %}
+            <div class="row mb-4 mt-2">
+                <div class="col-10">
+                    <a class="article-title" href="{% url 'forumthread-detail' forumthread.id %}">
+                        <b>{{ forumthread.title }}</b></a><br>{{ forumthread.author }} <i class="bi bi-dot"></i> {{forumthread.timestamp}}
+                    <hr>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %} 

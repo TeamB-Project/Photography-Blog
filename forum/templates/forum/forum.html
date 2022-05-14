@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <div class="col-10 mt-5">
+        <h1><b>Discussion Forums</b></h1>
+            <p>Welcome to the community forums. Here you can dicsuss, ask questions, debate, about photography. We have several topics for you to create threads in. Click on a topic to see threads posted by other members and click on Create a Thread if you want to dicuss or ask your questions about photography. Remember to stay on topic and create threads in the appropriate topic.</p>
+        </div>
+    
+    {% if user.is_superuser %}
+        <div id="forumtopic-add" class="col-5 mt-2">
+            <a class="article-title" href="{% url 'forumtopic-add' %}" </a>
+                <h6 class="btn btn-dark btn-sm"> Add Discussion Topic <i class="bi bi-plus-lg"></i></h6>
+            </a>
+        </div>
+    {% endif %}
+
+    <div>
+        {% for forumtopic in forumtopics %}
+            <div class="row">
+                <div class="col-12 mt-3">
+                    <a href="{% url 'forumtopic-detail' forumtopic.id %}" class="article-title"><h4><i class="bi bi-chat-left-fill"></i>  {{ forumtopic.title }}</h4>
+                    <p>{{ forumtopic.description }}</p>
+                    <hr>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

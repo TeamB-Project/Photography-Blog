@@ -1,0 +1,79 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-10 mt-5">
+                <h1 id="header">{{ object.title }}</h1>
+        </div>
+    </div>
+
+    {% if user.is_authenticated %}
+    <div class="row">
+        
+        {% if object.author == user %}
+            <div class="col-4">
+                <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'forumthread-update' object.id %}">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'forumthread-delete' object.id %}">Delete</a>
+            </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="row mt-4">
+        <div class="col-1">
+            <a href="{% url 'profileforum' username=object.author.profile.user.username %}">
+                <img class="rounded-circle account-forum-img thumbpic" src="{{ object.author.profile.image.url }}" height="15">
+            </a>
+        </div>
+
+        <div class="col-10 align-self-center">
+            <h6>{{ object.body }}<h6>
+        </div>
+    </div>
+
+    <div class="col-4 mt-2">
+        <hr class="mt-5">
+    </div>
+
+        {% for forumcomment in forumcomments %}
+            <div class="row mt-4 mb-4">
+                <div class="col-1">
+                    <a href="{% url 'profileforum' username=forumcomment.author.profile.user.username %}">
+                        <img class="rounded-circle account-forum-img thumbpic" src="{{ forumcomment.author.profile.image.url }}" height="15">
+                    </a>
+                </div>
+                <div class="col-3 align-self-center">
+                    <h6>{{ forumcomment.body }}<h6>
+                </div>
+            </div>
+        {% endfor %}
+
+    {% if user.is_authenticated %}
+        <div class="row mt-2">
+            <div class="col-1">
+                <img class="rounded-circle account-forum-img thumbpic" src="{{ user.profile.image.url }}" height="15">
+            </div>
+
+
+            <div class="col-8">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-dark" type="submit">Reply</button>
+                    </div>
+                </form>
+            </div>
+    {% endif %}
+    </div>
+
+    
+    <script>
+        document.getElementById("div_id_author").style.display="none"
+        document.getElementById("div_id_post").style.display="none"
+        document.getElementById("div_id_body").getElementsByTagName('label')[0].style.display="none"
+    </script>
+{% endblock content %} 
