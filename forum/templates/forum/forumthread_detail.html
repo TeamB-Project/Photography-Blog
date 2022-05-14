@@ -22,7 +22,7 @@
 
     <div class="row mt-4">
         <div class="col-1">
-            <a href="{% url 'profileforum' username=object.author.profile.user.username %}">
+            <a href="{% url 'show-profile' object.author.id %}">
                 <img class="rounded-circle account-forum-img thumbpic" src="{{ object.author.profile.image.url }}" height="15">
             </a>
         </div>
@@ -39,7 +39,7 @@
         {% for forumcomment in forumcomments %}
             <div class="row mt-4 mb-4">
                 <div class="col-1">
-                    <a href="{% url 'profileforum' username=forumcomment.author.profile.user.username %}">
+                    <a href="{% url 'show-profile' forumcomment.author.id %}">
                         <img class="rounded-circle account-forum-img thumbpic" src="{{ forumcomment.author.profile.image.url }}" height="15">
                     </a>
                 </div>
@@ -54,7 +54,6 @@
             <div class="col-1">
                 <img class="rounded-circle account-forum-img thumbpic" src="{{ user.profile.image.url }}" height="15">
             </div>
-
 
             <div class="col-8">
                 <form method="POST">
