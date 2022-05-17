@@ -8,20 +8,20 @@
     {% if user.is_superuser %}
         <div id="forumtopic-add" class="col-5 mt-2">
             <a class="article-title" href="{% url 'forumtopic-add' %}" </a>
-                <h6 class="btn btn-dark btn-sm"> Add Discussion Topic <i class="bi bi-plus-lg"></i></h6>
+                <h6 class="btn btn-dark"> Add Discussion Topic <i class="bi bi-plus-lg"></i></h6>
             </a>
         </div>
     {% endif %}
 
-    <div>
-        {% for forumtopic in forumtopics %}
-            <div class="row">
-                <div class="col-12 mt-3">
-                    <a href="{% url 'forumtopic-detail' forumtopic.id %}" class="article-title"><h4><i class="bi bi-chat-left-fill"></i>  {{ forumtopic.title }}</h4>
-                    <p>{{ forumtopic.description }}</p>
-                    <hr>
+        <div>
+            {% for forumtopic in forumtopics %}
+                <div class="row">
+                    <div class="col-12 mt-2">
+                        <a href="{% url 'forumtopic-detail' forumtopic.id %}" class="article-title"> <h5><b><i class="bi bi-chat-left-fill color-grey"></i> {{ forumtopic.title }}</b></h5>
+                        <p>{{ forumtopic.description }}</p>
+                        <hr>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
 {% endblock content %}

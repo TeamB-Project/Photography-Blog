@@ -10,67 +10,65 @@
   }
 </style>
 
-<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-  <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-  <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-  <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-  </div>
-  <div class="carousel-inner">
-  <div class="carousel-item active">
-      <img class="carousel-img" src="media/DSCF3840edit.jpg" alt="First slide">
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    </div>
+    <div class="carousel-inner">
+    <div class="carousel-item active">
+        <img class="carousel-img" src="media/DSCF3845.jpg" alt="First slide">
+        <div class="container">
+        <div class="carousel-caption">
+            <h3>Welcome to The Photographers Collaboration and Social Platform</h3>
+            <p>Create an account to share your photos and share your thoughts about photography</p>
+            <p><a class="btn btn-light" href="{% url 'register' %}">Sign up</a></p>
+        </div>
+        </div>
+    </div>
+    <div class="carousel-item">
+        <img class="carousel-img" src="media/DSCF2661.jpg" alt="Second slide">
 
-      <div class="container">
-      <div class="carousel-caption">
-          <h3>Welcome to The Photographers Collaboration and Social Platform</h3>
-          <p>Create an account to share your photos and share your thoughts about photography</p>
-          <p><a class="btn btn-lg btn-light" href="{% url 'register' %}">Sign up</a></p>
-      </div>
-      </div>
-  </div>
-  <div class="carousel-item">
-      <img class="carousel-img" src="media/DSCF2043.jpg" alt="Second slide">
+        <div class="container">
+        <div class="carousel-caption">
+            <h3>Learn More</h3>
+            <p>Find out what the website is about and what you can do</p>
+            <p><a class="btn btn-light" href="{% url 'blog-about' %}">About</a></p>
+        </div>
+        </div>
+    </div>
+    <div class="carousel-item">
+        <img class="carousel-img" src="media/DSCF1166.jpg" alt="Third slide">
+        <div class="container">
+        <div class="carousel-caption">
+            <h3>Explore the Photo Gallery</h3>
+            <p>Visit the photo gallery</p>
+            <p><a class="btn btn-light" href="{% url 'gallery' %}">Browse gallery</a></p>
+        </div>
+        </div>
+    </div>
+    <div class="carousel-item">
+        <img class="carousel-img" src="media/DSCF3803.jpg" alt="Fourth Slide">
 
-      <div class="container">
-      <div class="carousel-caption">
-          <h3>Learn More</h3>
-          <p>Find out what the website is about and what you can do</p>
-          <p><a class="btn btn-lg btn-light" href="{% url 'blog-about' %}">About</a></p>
-      </div>
-      </div>
-  </div>
-  <div class="carousel-item">
-      <img class="carousel-img" src="media/DSCF1162.jpg" alt="Third slide">
-
-      <div class="container">
-      <div class="carousel-caption">
-          <h3>Explore the Photo Gallery</h3>
-          <p>Visit the photo gallery</p>
-          <p><a class="btn btn-lg btn-light" href="{% url 'gallery' %}">Browse gallery</a></p>
-      </div>
-      </div>
-  </div>
-  <div class="carousel-item">
-      <img class="carousel-img" src="media/DSCF1300.jpg" alt="Fourth Slide">
-
-      <div class="container">
-      <div class="carousel-caption">
-          <h3>Discuss</h3>
-          <p>Ask questions and discuss about photography</p>
-          <p><a class="btn btn-lg btn-light" href="{% url 'blog-forum' %}">Forum</a></p>
-      </div>
-      </div>
-  </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-  <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-  <span class="visually-hidden">Next</span>
-  </button>
-</div>
+        <div class="container">
+        <div class="carousel-caption">
+            <h3>Discuss</h3>
+            <p>Ask questions and discuss about photography</p>
+            <p><a class="btn btn-light" href="{% url 'blog-forum' %}">Forum</a></p>
+        </div>
+        </div>
+    </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+    </button>
+    </div>
 </body>
 {% endblock content %}

@@ -23,7 +23,7 @@
                         <b>Top Tags</b>
                     </div>
                         <br>{% for tag in toptags %}
-                                    <a mb-1 href="{% url 'photos-by-tag' tag.slug %}" class="btn btn-sm btn-outline-dark">
+                                    <a href="{% url 'photos-by-tag' tag.slug %}" class="btn btn-sm btn-custom mb-1" >
                                         {{ tag }}
                                     </a>
                             {% endfor %}
@@ -49,7 +49,7 @@
                         {% for description in descriptions %}
                             <h6>{{description.description}}</h6>
                         {% endfor %}
-                        <h5>No Photos...</h5>
+                        <h6>No Photos...</h6>
                     {% endfor %}
                 </div>
             </div>

@@ -24,7 +24,7 @@ class ForumTopicDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ForumTopicDetailView, self).get_context_data(**kwargs)
-        context['forumthreads'] = ForumThread.objects.filter(topic=self.kwargs.get('pk'))
+        context['forumthreads'] = ForumThread.objects.filter(topic=self.kwargs.get('pk')).order_by('-timestamp')
         return context
 
 class ForumTopicCreateView(LoginRequiredMixin, CreateView):
@@ -42,7 +42,7 @@ class ForumThreadDetailView(FormMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ForumThreadDetailView, self).get_context_data(**kwargs)
-        context['forumcomments'] = ForumComment.objects.filter(post=self.kwargs.get('pk'))
+        context['forumcomments'] = ForumComment.objects.filter(post=self.kwargs.get('pk')).order_by('-timestamp')
         context['form'] = ForumCreateCommentForm(initial={'post': self.object, 'author': self.request.user})
 
         return context

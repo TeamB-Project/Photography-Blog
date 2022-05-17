@@ -27,8 +27,6 @@ class PostListView(ListView):
     template_name = 'blog/articles.html'  #<app>/<model>_<viewtype>.html
     context_object_name = 'posts'
 
-
-#Admin approval
     def get_queryset(self):
         currenttime = timezone.now()
         return Post.objects.filter(Q(date_posted__isnull=False),Q(date_posted__lt=currenttime)).order_by('-date_posted')
