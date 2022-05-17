@@ -8,6 +8,30 @@
                 <h2 class="account-heading">{{ profileuser.username }}</h2>
                 <p class="text-secondary">{{ profileuser.email }}</p>
                 <p class="text-dark"> <b>About:</b><br> {{ profileuser.profile.about }}</p>
+                <button class="btn btn-sm btn-custom py-0 my-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    {{ profileuser.username }}'s Articles
+                  </button>
+            </div>
+        </div>
+        <div class="collapse" id="collapseExample">
+            <div>
+                {% for post in posts %}
+                <article class="media content-section">
+                <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <div class="article-metadata">
+                            <p>By <a href="{% url 'show-profile' pk=post.author.pk %}" class="username-title">{{ post.author }}</a>
+                            <small class="text-muted">| {{ post.date_posted|date:"F d, Y" }}</small></p>
+                        </div>
+                        <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+                        <p class="article-content">{{ post.content }}</p>
+                    </div>
+                </div>
+                </article>
+                {% empty %}
+                    <p>No articles found</p>
+                {% endfor %}
             </div>
         </div>
     </div>

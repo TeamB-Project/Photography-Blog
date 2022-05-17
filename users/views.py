@@ -8,6 +8,7 @@ from django.views.generic import (
 )
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
+from blog.models import Post
 
 def register(request):
     if request.method == 'POST':
@@ -43,11 +44,11 @@ def profile(request):
 
     return render(request, 'users/profile.html', context)
 
-def profile_view(request, pk, *args, **kwargs):
-    context = {}
-
+def profile_view(request, pk):
+    
     if request.method == "GET":
         profileuser = User.objects.get(id=pk)
-        context = {'profileuser': profileuser}
+        posts = Post.objects.filter(author=profileuser).order_by('-date_posted')
+        context = {'profileuser': profileuser, 'posts': posts}
     
     return render(request, 'users/show_profile.html', context)
