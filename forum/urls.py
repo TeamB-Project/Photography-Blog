@@ -12,7 +12,7 @@ from .views import (
 )
 
 urlpatterns = [
-    path('forum/', ForumTopicListView.as_view(), name='forum'),
+    path('discussion/', ForumTopicListView.as_view(), name='discussion'),
     path('forumtopic/add/', ForumTopicCreateView.as_view(), name='forumtopic-add'),
     path('forumtopic/<int:pk>/', ForumTopicDetailView.as_view(), name='forumtopic-detail'),
     path('forumtopic/<int:pk>/newpost/', ForumThreadCreateView.as_view(), name='forumthread-create'),
