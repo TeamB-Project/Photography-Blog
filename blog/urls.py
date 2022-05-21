@@ -8,6 +8,7 @@ from .views import (
     SearchResultsView
 )
 from . import views
+from photos.views import membergallery
 
 urlpatterns = [
     path('articles/', PostListView.as_view(), name='blog-articles'),
@@ -25,5 +26,6 @@ urlpatterns = [
     path('home/', views.home, name='home'),
     path('post/delete/success/', views.post_delete, name='post-delete-success'),
     path('post/update/success/', views.post_update, name='post-update-success'),
-    path('search/', SearchResultsView.as_view(), name='search-results')
+    path('search/', SearchResultsView.as_view(), name='search-results'),
+    path('membergallery/<str:pid>/', membergallery, name='membergallery'),
 ]
