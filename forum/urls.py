@@ -8,7 +8,8 @@ from .views import (
     ForumThreadCreateView,
     ForumThreadDetailView,
     ForumThreadUpdateView,
-    ForumThreadDeleteView
+    ForumThreadDeleteView,
+    ForumCommentDeleteView
 )
 
 urlpatterns = [
@@ -19,4 +20,5 @@ urlpatterns = [
     path('forumthread/<int:pk>/', ForumThreadDetailView.as_view(), name='forumthread-detail'),
     path('forumthread/<int:pk>/update/', ForumThreadUpdateView.as_view(), name='forumthread-update'),
     path('forumthread/<int:pk>/delete/', ForumThreadDeleteView.as_view(), name='forumthread-delete'),
+    path('forumcomment/<int:pk>/delete/', ForumCommentDeleteView.as_view(), name='forumcomment-delete'),
 ]

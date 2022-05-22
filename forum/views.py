@@ -12,6 +12,7 @@ from django.views.generic import (
 from .models import ForumTopic, ForumThread, ForumComment
 from .forms import ForumCreateCommentForm
 
+from django.urls import reverse_lazy
 # Topic views
 
 class ForumTopicListView(ListView):
@@ -88,6 +89,16 @@ class ForumThreadUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
 class ForumThreadDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = ForumThread
     success_url = '/'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False    
+
+class ForumCommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = ForumComment
+    success_url = reverse_lazy('discussion')
 
     def test_func(self):
         post = self.get_object()
