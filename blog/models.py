@@ -18,7 +18,7 @@ class Post(models.Model):
         return self.title + '------' + str(self.author) + '------' + str(self.date_posted)
 
     def get_absolute_url(self):
-        return reverse('home')
+        return reverse('blog-articles')
 
     #def get_absolute_url(self):
         #return reverse('post-detail',kwargs={'pk': self.pk})
@@ -30,7 +30,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('articles')
+        return reverse('blog-articles')
 
 class BlogComment(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
