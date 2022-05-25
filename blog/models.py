@@ -9,6 +9,10 @@ class Post(models.Model):
     date_posted = models.DateTimeField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.CharField(max_length=100, default='uncategorized')
+    likes = models.ManyToManyField(User, related_name='blog_posts')
+
+    def total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return self.title + '------' + str(self.author) + '------' + str(self.date_posted)
@@ -27,3 +31,12 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse('articles')
+
+class BlogComment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    post = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True)
+    timestamp = models.DateTimeField(default=timezone.now)
+    body = models.TextField()
+
+    def __str__(self):
+        return self.body

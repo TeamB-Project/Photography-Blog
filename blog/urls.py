@@ -5,7 +5,8 @@ from .views import (
     PostCreateView,
     PostUpdateView,
     PostDeleteView,
-    SearchResultsView
+    SearchResultsView,
+    LikeView
 )
 from . import views
 from photos.views import membergallery
@@ -28,4 +29,5 @@ urlpatterns = [
     path('post/update/success/', views.post_update, name='post-update-success'),
     path('search/', SearchResultsView.as_view(), name='search-results'),
     path('membergallery/<str:pid>/', membergallery, name='membergallery'),
+    path('like/<int:pk>', LikeView, name='like_post'),
 ]

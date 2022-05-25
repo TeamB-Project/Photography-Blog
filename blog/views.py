@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView,
@@ -7,11 +7,13 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from blog.models import Post, Category
-from .forms import (PostForm, UpdateForm)
+from .models import Post, Category,BlogComment
+from django.views.generic.edit import FormMixin
+from .forms import (PostForm, UpdateForm, BlogCreateCommentForm)
 from django.db.models import Q
 from django.utils import timezone
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.http import HttpResponseRedirect
 
 def home(request):
     return render(request, 'blog/home.html')
@@ -22,6 +24,11 @@ def articles(request):
     }
     return render(request, 'blog/articles.html', context)
 
+def LikeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('post-detail', args=[str(pk)]))
+    
 class PostListView(ListView):
     model = Post
     template_name = 'blog/articles.html'  #<app>/<model>_<viewtype>.html
@@ -31,9 +38,33 @@ class PostListView(ListView):
         currenttime = timezone.now()
         return Post.objects.filter(Q(date_posted__isnull=False),Q(date_posted__lt=currenttime)).order_by('-date_posted')
 
-class PostDetailView(DetailView):
+class PostDetailView(FormMixin, DetailView):
     model = Post
+    form_class = BlogCreateCommentForm
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(PostDetailView, self).get_context_data(*args, **kwargs)
+        stuff = get_object_or_404(Post, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
+        context["total_likes"] = total_likes
+        context['blogcomments'] = BlogComment.objects.filter(post=self.kwargs.get('pk')).order_by('-timestamp')
+        context['form'] = BlogCreateCommentForm(initial={'post': self.object, 'author': self.request.user})
+        return context
+
+    def get_success_url(self):
+        return reverse('post-detail', kwargs={'pk': self.object.id})
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.save()
+        return super(PostDetailView, self).form_valid(form)
 
 class PostCreateView(CreateView):
     model = Post

@@ -11,7 +11,7 @@
                 <button class="btn btn-sm btn-custom py-0 my-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     {{ profileuser.username }}'s Articles
                 </button>
-                <a href="{% url 'membergallery' profileuser.profile.pk %}" class="btn btn-sm btn-custom py-0 my-4">{{ profileuser.username }}'s Photos</a>
+                <a href="{% url 'membergallery' profileuser.pk %}" class="btn btn-sm btn-custom py-0 my-4">{{ profileuser.username }}'s Photos</a>
             </div>
         </div>
         <div class="collapse" id="collapseExample">

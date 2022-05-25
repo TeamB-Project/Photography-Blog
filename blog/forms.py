@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Category
+from .models import Post, Category, BlogComment
 
 categories = Category.objects.all().values_list('name','name')
 
@@ -34,3 +34,8 @@ class UpdateForm(forms.ModelForm):
             'category': forms.Select(choices=categories_list, attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control'}),
         }
+
+class BlogCreateCommentForm(forms.ModelForm):
+    class Meta:
+        model = BlogComment
+        fields = ['body', 'author', 'post']
