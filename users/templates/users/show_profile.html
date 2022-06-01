@@ -6,7 +6,19 @@
             <div class="media-body">
                 <h2 class="account-heading"><img class="rounded-circle account-img" src="{{ profileuser.profile.image.url }}">{{ profileuser.username }}</h2>
                 <p class="text-secondary">{{ profileuser.email }}</p>
-                <p class="text-dark"> <b>About:</b><br> {{ profileuser.profile.about }}</p>
+                
+                {% if profileuser.profile.availableforHire %}
+                    <small style="color:#2F84FF">Available for Hire <i class="bi bi-check-circle-fill"></i></small>
+                    <br><small>Available in: </small>
+                    <small>{{ profileuser.profile.locationAvailable }}</small><br>
+                    <small>Photography work interested in: </small>
+                    <small>{{ profileuser.profile.photographySpecialty }}</small><br><br>
+                {% else %}
+                    <small>Not Available for Hire <i class="bi bi-x-circle-fill"></i></small>
+                {% endif %}
+
+
+                <br><b>About:</b><br> {{ profileuser.profile.about }}</p>
                 <button class="btn btn-sm btn-custom py-0 my-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     {{ profileuser.username }}'s Articles
                 </button>

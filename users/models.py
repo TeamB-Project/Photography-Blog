@@ -6,6 +6,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.png', upload_to='profile_pics')
     about = models.TextField(null=True)
+    availableforHire = models.BooleanField(default=False)
+    locationAvailable = models.CharField(max_length=100, null=True,blank=True)
+    photographySpecialty = models.CharField(max_length=250, null=True,blank=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'

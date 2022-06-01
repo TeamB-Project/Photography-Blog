@@ -1,6 +1,6 @@
 from distutils.command.upload import upload
 from django import forms
-from .models import Photo, PhotoCategory
+from .models import Photo, PhotoCategory, PhotoComment
 from taggit.forms import TagWidget
  
 photocategories = PhotoCategory.objects.all().values_list('name','name')
@@ -37,3 +37,8 @@ class PhotoUpdateForm(forms.ModelForm):
             'photocategory': forms.Select(choices=photocategories_list, attrs={'class': 'form-control'}),
             'tags': TagWidget(),
             }
+
+class PhotoCreateCommentForm(forms.ModelForm):
+    class Meta:
+        model=PhotoComment
+        fields=['body', 'author', 'photo']

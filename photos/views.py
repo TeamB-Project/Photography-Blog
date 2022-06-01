@@ -1,15 +1,19 @@
-from django.shortcuts import render, redirect
+from multiprocessing import context
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Photo, PhotoCategory
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import (PhotoPostForm, PhotoUpdateForm)
+from .forms import (PhotoPostForm, PhotoUpdateForm, PhotoCreateCommentForm )
+from django.views.generic.edit import FormMixin
 from django.views.generic import (
     CreateView,
     UpdateView,
-    ListView
+    ListView,
+    DetailView
 )
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from taggit.models import Tag
+from django.http import HttpResponseRedirect
 
 def gallery(request):
     photocategory = request.GET.get('photocategory')
@@ -82,3 +86,35 @@ class TagIndexView(TagMixin, ListView):
             context['photos'] = Photo.objects.filter(Q(tags__slug=self.kwargs.get('tag_slug')),Q(approved=True))
             context['photoset'] = "allphotos"
             return context
+
+def PhotoLikeView(request, pk):
+    photo = get_object_or_404(Photo, id=request.POST.get('photo_id'))
+    photo.photolikes.add(request.user)
+    return HttpResponseRedirect(reverse('viewphoto', args=[str(pk)]))
+
+class PhotoDetailView(FormMixin, DetailView):
+    model = Photo
+    form_class = PhotoCreateCommentForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PhotoDetailView, self).get_context_data(*args, **kwargs)
+        stuff = get_object_or_404(Photo, id=self.kwargs['pk'])
+        total_photolikes = stuff.total_photolikes()
+        context["total_photolikes"] = total_photolikes
+        context['form'] = PhotoCreateCommentForm(initial={'post': self.object, 'author': self.request.user})
+        return context
+
+    def get_success_url(self):
+        return reverse('post-detail', kwargs={'pk': self.object.id})
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.save()
+        return super(PhotoDetailView, self).form_valid(form)
