@@ -1,5 +1,6 @@
 from django import forms
 from .models import Post, Category, BlogComment
+from taggit.forms import TagWidget
 
 categories = Category.objects.all().values_list('name','name')
 
@@ -14,25 +15,27 @@ for item in categories:
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'category', 'author', 'content')
+        fields = ('title', 'category', 'author', 'content', 'tags')
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control'}),
             'author': forms.TextInput(attrs={'class': 'form-control','value':'','id':'uid','type':'hidden'}),
             'category': forms.Select(choices=categories_list, attrs={'class': 'form-control'}),
+            'tags': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 
 class UpdateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'category','content')
+        fields = ('title', 'category', 'content', 'tags')
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'category': forms.Select(choices=categories_list, attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control'}),
+            'tags': TagWidget(),
         }
 
 class BlogCreateCommentForm(forms.ModelForm):

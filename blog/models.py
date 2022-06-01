@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -10,6 +11,8 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.CharField(max_length=100, default='uncategorized')
     likes = models.ManyToManyField(User, related_name='blog_posts')
+    tags = TaggableManager()
+    approved = models.BooleanField(default=False)
 
     def total_likes(self):
         return self.likes.count()

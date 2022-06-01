@@ -27,6 +27,13 @@
             <a href= "{% url 'login' %}"> Login</a>  to like - {{ total_likes}} Like(s)
         </form>
     {% endif %}
+    <br/>
+    <small><i class="bi bi-tags"></i> Tags </small>
+    {% for tag in post.tags.all %}
+        <a href="{% url 'posts-by-tag' tag.slug %}" class="btn btn-sm btn-custom py-0 my-0">{{ tag }}</a>
+    {% empty %}
+        <small>none</small>
+    {% endfor %}
 <hr>
 
     <br><div class="col-4 mt-2"></div>

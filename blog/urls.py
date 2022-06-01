@@ -30,4 +30,5 @@ urlpatterns = [
     path('search/', SearchResultsView.as_view(), name='search-results'),
     path('membergallery/<str:pid>/', membergallery, name='membergallery'),
     path('like/<int:pk>', LikeView, name='like_post'),
+    path('tags/<slug:tag_slug>/', views.TagIndexView.as_view(), name='posts-by-tag'),
 ]

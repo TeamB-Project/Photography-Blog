@@ -14,6 +14,7 @@ from django.db.models import Q
 from django.utils import timezone
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+from taggit.models import Tag
 
 def home(request):
     return render(request, 'blog/home.html')
@@ -138,3 +139,23 @@ class SearchResultsView(ListView):
             Q(title__icontains=query) & Q(date_posted__isnull=False)
         ).exclude(Q(title__iexact='')).order_by('-date_posted')
         return object_list
+
+class TagMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(TagMixin, self).get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        context['posts'] = Post.objects.all()
+        context['toptags'] = Post.tags.most_common()[:10]
+        return context
+
+class TagIndexView(TagMixin, ListView):
+    model = Post
+    template_name = 'blog/articles.html'
+
+    def get_context_data(self, **kwargs):
+            context = super(TagMixin, self).get_context_data(**kwargs)
+            context['tags'] = Tag.objects.all()
+            context['allposts'] = Post.objects.all()
+            context['toptags'] = Post.tags.most_common()[:10]
+            context['posts'] = Post.objects.filter(Q(tags__slug=self.kwargs.get('tag_slug')),Q(approved=True))
+            return context
